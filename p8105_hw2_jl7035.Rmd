@@ -17,8 +17,7 @@ library(tidyverse)
 
 # Problem 1
 
-## Load Transit Data
-
+Load Transit Data
 ```{r}
 NYC_Transit_df <- read_csv(
   "Local_Data_Files/NYC_Transit_Subway_Entrance_And_Exit_Data.csv")
@@ -76,3 +75,11 @@ how the route data is being represented. Looking at it, I wonder if it would
 be better to condense the data into two columns: (1) The route number, (2)
 the train on that route. This way, we could avoid large amounts of NA values 
 for route numbers that simply don't exist for certain stations.
+
+Determine number of distinct stations
+```{r}
+NYC_Transit_df <- NYC_Transit_df %>%
+  distinct(line, station_name, .keep_all =  TRUE)
+
+```
+There are `r nrow(NYC_Transit_df` distinct stations in NYC.
