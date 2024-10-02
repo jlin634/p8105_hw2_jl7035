@@ -44,4 +44,19 @@ col_names_NYC <- colnames(NYC_Transit_df)
 col_names_NYC
 
 ```
+Selecting the Relevant Columns in the Data Set
+
+```{r}
+NYC_Transit_df <- NYC_Transit_df %>%
+  select(line, station_name, station_latitude, station_longitude,
+         route1:route11, entry, vending, entrance_type, ada)
+
+head(NYC_Transit_df)
+
+NYC_Transit_df <- NYC_Transit_df %>% 
+  mutate(across(route8:route11, as.character))
+         
+head(NYC_Transit_df)
+         
+```
 
