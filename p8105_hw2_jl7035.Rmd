@@ -271,14 +271,25 @@ Trash_Wheel_Type == "Gwynnda Trash Wheel") %>% pull(cigarette_butts) %>% sum()`.
 # Problem 3
 
 
-
 ## Reading in and cleaning bakers csv file
 ```{r}
 bakers_df <- 
-  read_csv("Local_Data_Files/gbb_datasets/bakers.csv",
-  na = c("NA", ".", "", "N/A", "Unknown", "UNKNOWN")) %>%
+  read_csv(
+    "Local_Data_Files/gbb_datasets/bakers.csv",
+    na = c("NA", ".", "", "N/A", "Unknown", "UNKNOWN")) %>%
   janitor::clean_names() %>% 
-  separate(baker_name, into = c("baker", "last name"), sep = " ")
+  separate(
+    baker_name, 
+    into = c("baker", "last name"), 
+    sep = " ") %>% 
+  mutate(
+    baker = case_match(
+      baker,
+      "Jo" ~ "Joanne",
+      .default = baker
+      
+    )
+  )
   
 head(bakers_df)
 
@@ -288,10 +299,18 @@ head(bakers_df)
 # Reading in and cleaning bakes csv file
 ```{r}
 bakes_df <- 
-  read_csv("Local_Data_Files/gbb_datasets/bakes.csv",
-  na= c("NA", ".", "", "N/A", "Unknown", "UNKNOWN")) %>% 
+  read_csv(
+    "Local_Data_Files/gbb_datasets/bakes.csv",
+    na= c("NA", ".", "", "N/A", "Unknown", "UNKNOWN")) %>% 
   janitor::clean_names() %>%
-  relocate(baker)
+  relocate(baker) %>% 
+  mutate(
+    baker = case_match(
+      baker,
+      '"Jo"' ~ "Joanne",
+      .default = baker
+    )
+  )
 
 head(bakes_df)
 
@@ -312,13 +331,13 @@ head(results_df)
 
 ## Identifying overlap between datasets (or where there isn't overlap)
 ```{r}
-anti_join(bakes_df, bakers_df)
 anti_join(bakes_df, results_df)
+anti_join(bakers_df, results_df)
 
+anti_join(bakes_df, bakers_df)
 
-anti_join(results_df, bakes_df)
-anti_join(results_df, bakers_df)
 ```
+
 
 
 ## Combine the Datasetsand check for Loss of Data
@@ -329,8 +348,8 @@ gbb_combined <-
 
 anti_join(bakers_df, gbb_combined)
 anti_join(bakes_df, gbb_combined)
-anti_join(results_df, gbb_combined)
 
+gbb_combined
 
 
 ```
@@ -338,7 +357,11 @@ anti_join(results_df, gbb_combined)
 
 
 ```{r}
+a <-anti_join(bakers_df, gbb_combined)
+b <- anti_join(bakes_df, gbb_combined)
+
 
 ```
 
+## Read and Clean Viewers.csv
 
