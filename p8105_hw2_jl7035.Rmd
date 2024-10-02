@@ -17,7 +17,7 @@ library(tidyverse)
 
 # Problem 1
 
-Load Transit Data
+## Load Transit Data
 ```{r}
 NYC_Transit_df <- read_csv(
   "Local_Data_Files/NYC_Transit_Subway_Entrance_And_Exit_Data.csv")
@@ -31,7 +31,7 @@ head(NYC_Transit_df)
 
 ```
 
-Inspect Characteristics of the Data Frame
+## Inspect Characteristics of the Data Frame
 ```{r}
 nrows_NYC <- nrow(NYC_Transit_df)
 nrows_NYC
@@ -43,8 +43,7 @@ col_names_NYC <- colnames(NYC_Transit_df)
 col_names_NYC
 
 ```
-Selecting the Relevant Columns in the Data Set
-
+## Selecting the Relevant Columns in the Data Set
 ```{r}
 NYC_Transit_df <- NYC_Transit_df %>%
   select(line, station_name, station_latitude, station_longitude,
@@ -76,26 +75,25 @@ be better to condense the data into two columns: (1) The route number, (2)
 the train on that route. This way, we could avoid large amounts of NA values 
 for route numbers that simply don't exist for certain stations.
 
-Determine number of distinct stations
+## Determine number of distinct stations
 ```{r}
 NYC_Transit_df <- NYC_Transit_df %>%
   distinct(line, station_name, .keep_all =  TRUE)
 
 ```
-There are `r nrow(NYC_Transit_df` distinct stations in NYC.
+There are `r nrow(NYC_Transit_df)` distinct stations in NYC.
 
 
-Determine number of ADA Compliant Stations
+## Determine number of ADA Compliant Stations
 ```{r}
 NYC_Transit_df <- NYC_Transit_df %>% 
   filter(ada = TRUE)
 
 ```
-There are `r nrow(NYC_Transit_df` ADA compliant stations.
+There are `r nrow(NYC_Transit_df)` ADA compliant stations.
 
 
-Determine proportion of station entrances/exits which allow entrance but do not
-have vending machines
+## What proportion of station entrances / exits without vending allow entrance?
 ```{r}
 Prop_Allow_Entrance <- NYC_Transit_df %>% 
   filter(vending =="NO", .keep_all = TRUE) %>%
@@ -111,7 +109,7 @@ Prop_Allow_Entrance <- NYC_Transit_df %>%
 The proportion of station entrances/exists without vending machines, that allow
 entrances is `r Prop_Allow_Entrance`
 
-Reformat data so that route number and route name are distinct variables
+## Reformat data so that route number and route name are distinct variables
 ```{r}
 NYC_Transit_df <- NYC_Transit_df %>% 
   pivot_longer(
@@ -125,7 +123,7 @@ head(NYC_Transit_df)
 
 
 
-Determine number of distinct stations serving the A train
+## Determine number of distinct stations serving the A train
 ```{r}
 Serve_A <- NYC_Transit_df %>% 
   filter(route_name == "A") %>%
@@ -135,7 +133,7 @@ Serve_A <- NYC_Transit_df %>%
 ```
 There are `r nrow(Serve_A)` unique stations serving the A train.
 
-Determine how many of the stations serving the A train are ADA Compliant
+## Determine how many of the stations serving the A train are ADA Compliant
 ```{r}
 Station_A_compl <- NYC_Transit_df %>% 
   filter(route_name == "A", ada = TRUE) %>%
@@ -146,3 +144,9 @@ Station_A_compl <- NYC_Transit_df %>%
 There are `r nrow(Station_A_compl)` stations which serve the A train and are 
 ADA Compliant.
 
+
+
+
+# Problem 2
+
+# Problem 3
