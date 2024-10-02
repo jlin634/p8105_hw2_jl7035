@@ -111,6 +111,25 @@ Prop_Allow_Entrance <- NYC_Transit_df %>%
 The proportion of station entrances/exists without vending machines, that allow
 entrances is `r Prop_Allow_Entrance`
 
+Reformat data so that route number and route name are distinct variables
+```{r}
+NYC_Transit_df <- NYC_Transit_df %>% 
+  pivot_longer(
+    route1:route11,
+    names_to = "route number",
+    values_to = "route name"
+  )
+
+head(NYC_Transit_df)
+```
+
+
+
 Determine number of distinct stations serving the A train
+
+```{r}
+
+```
+
 
 Determine how many of the stations serving the A train are ADA Compliant
