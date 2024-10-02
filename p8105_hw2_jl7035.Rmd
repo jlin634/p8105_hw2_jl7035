@@ -60,3 +60,19 @@ head(NYC_Transit_df)
          
 ```
 
+This dataset contains various information regarding NYC transit. In it's 
+current format, after doing a few steps of cleaning, the dimensions of the 
+dataset are `r dim(NYC_Transit_df)`. The current variables of interest, based 
+on the columns that have been selected are as follows: 
+`r colnames(NYC_Transit_df)`. They broadly cover the location of stations, 
+as well as the trains that come through each station, and each respective 
+station's accessibility. In order to clean this dataset, I first read in the 
+data into a dataframe and inspected it with head(), as well as looked at its 
+dimensions and column names. Afterwards, I selected the instructed columns and 
+once again inspected it through head. There, I noticed that not all route 
+columns were standardized to char type, so I did such. After all these steps,
+I would still not say this data is tidy. I see some potential issues with 
+how the route data is being represented. Looking at it, I wonder if it would 
+be better to condense the data into two columns: (1) The route number, (2)
+the train on that route. This way, we could avoid large amounts of NA values 
+for route numbers that simply don't exist for certain stations.
