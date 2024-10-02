@@ -174,7 +174,30 @@ Mr_Trash_Wheel_df <- Mr_Trash_Wheel_df %>%
 
 ```
 
-## Read in 
+## Read in Professor Trash Wheel Data
+```{r}
+Professor_Trash_Wheel_df <-
+  readxl::read_excel("Local_Data_Files/202409 Trash Wheel Collection Data.xlsx",
+  sheet = "Professor Trash Wheel",
+  skip = 1,
+  na = c("NA", ".", ""),
+  range = "A2:M120"
+  ) %>%
+  janitor::clean_names()
+
+head(Professor_Trash_Wheel_df)
+
+```
+## Round homes_powered to nearest integer and convert type to integer
+
+```{r}
+Professor_Trash_Wheel_df <- Professor_Trash_Wheel_df %>% 
+  mutate(homes_powered = as.integer(round(homes_powered)))
+
+head(Professor_Trash_Wheel_df)
+
+```
+
 
 
 # Problem 3
