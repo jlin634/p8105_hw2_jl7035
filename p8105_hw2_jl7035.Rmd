@@ -150,9 +150,9 @@ ADA Compliant.
 
 # Problem 2
 
-## Read in Data
+## Read in Mr. Trash Wheel Data
 ```{r}
-Mr_TrashWheel_df <- 
+Mr_Trash_Wheel_df <- 
   readxl::read_excel("Local_Data_Files/202409 Trash Wheel Collection Data.xlsx",
   sheet = "Mr. Trash Wheel", 
   skip = 1,
@@ -161,15 +161,26 @@ Mr_TrashWheel_df <-
   ) %>% 
   janitor::clean_names()
 
-head(Mr_TrashWheel_df)
+head(Mr_Trash_Wheel_df)
 
 ```
+
+
+
+## Round sports ball to nearest integer and convert type to integer
+```{r}
+Mr_Trash_Wheel_df <- Mr_Trash_Wheel_df %>% 
+  mutate(sports_balls = as.integer(round(sports_balls))) 
+
+```
+
+## Read in 
+
+
+# Problem 3
 
 
 ```{r}
 
 ```
 
-
-
-# Problem 3
