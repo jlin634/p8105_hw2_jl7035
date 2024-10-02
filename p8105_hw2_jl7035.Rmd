@@ -23,5 +23,25 @@ library(tidyverse)
 NYC_Transit_df <- read_csv(
   "Local_Data_Files/NYC_Transit_Subway_Entrance_And_Exit_Data.csv")
 
+NYC_Transit_df <- 
+  NYC_Transit_df %>%
+  janitor::clean_names()
+  
+
+head(NYC_Transit_df)
+
+```
+
+Inspect Characteristics of the Data Frame
+```{r}
+nrows_NYC <- nrow(NYC_Transit_df)
+nrows_NYC
+
+ncols_NYC <- ncol(NYC_Transit_df)
+ncols_NYC
+
+col_names_NYC <- colnames(NYC_Transit_df)
+col_names_NYC
+
 ```
 
