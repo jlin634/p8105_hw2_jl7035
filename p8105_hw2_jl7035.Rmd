@@ -136,3 +136,13 @@ Serve_A <- NYC_Transit_df %>%
 There are `r nrow(Serve_A)` unique stations serving the A train.
 
 Determine how many of the stations serving the A train are ADA Compliant
+```{r}
+Station_A_compl <- NYC_Transit_df %>% 
+  filter(route_name == "A", ada = TRUE) %>%
+  distinct(line, station_name)
+
+
+```
+There are `r nrow(Station_A_compl)` stations which serve the A train and are 
+ADA Compliant.
+
