@@ -147,6 +147,29 @@ ADA Compliant.
 
 
 
+
 # Problem 2
+
+## Read in Data
+```{r}
+Mr_TrashWheel_df <- 
+  readxl::read_excel("Local_Data_Files/202409 Trash Wheel Collection Data.xlsx",
+  sheet = "Mr. Trash Wheel", 
+  skip = 1,
+  na = c("NA", ".", ""),
+  range = "A2:N653"
+  ) %>% 
+  janitor::clean_names()
+
+head(Mr_TrashWheel_df)
+
+```
+
+
+```{r}
+
+```
+
+
 
 # Problem 3
