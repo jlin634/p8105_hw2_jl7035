@@ -277,7 +277,8 @@ Trash_Wheel_Type == "Gwynnda Trash Wheel") %>% pull(cigarette_butts) %>% sum()`.
 bakers_df <- 
   read_csv("Local_Data_Files/gbb_datasets/bakers.csv",
   na = c("NA", ".", "", "N/A", "Unknown", "UNKNOWN")) %>%
-  janitor::clean_names()
+  janitor::clean_names() %>% 
+  separate(baker_name, into = c("baker", "last name"), sep = " ")
   
 head(bakers_df)
 
@@ -307,6 +308,37 @@ results_df <-
   relocate(baker)
 
 head(results_df)
+```
+
+## Identifying overlap between datasets (or where there isn't overlap)
+```{r}
+anti_join(bakes_df, bakers_df)
+anti_join(bakes_df, results_df)
+
+
+anti_join(results_df, bakes_df)
+anti_join(results_df, bakers_df)
+```
+
+
+## Combine the Datasetsand check for Loss of Data
+```{r}
+gbb_combined <- 
+  left_join(results_df, bakes_df) %>% 
+  left_join(bakers_df)
+
+anti_join(bakers_df, gbb_combined)
+anti_join(bakes_df, gbb_combined)
+anti_join(results_df, gbb_combined)
+
+
+
+```
+
+
+
+```{r}
+
 ```
 
 
