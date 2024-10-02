@@ -177,6 +177,15 @@ head(Mr_Trash_Wheel_df)
 
 ```
 
+## Convert Year from char type to double
+```{r}
+Mr_Trash_Wheel_df <- Mr_Trash_Wheel_df %>% 
+  mutate(year = as.double(year))
+
+
+```
+
+
 ## Read in Professor Trash Wheel Data
 ```{r}
 Professor_Trash_Wheel_df <-
@@ -242,6 +251,8 @@ head(Gwyn_Trash_Wheel_df)
 
 ```{r}
 
+Trash_Wheel_df <- left_join(Mr_Trash_Wheel_df, Professor_Trash_Wheel_df)
+Trash_Wheel_df <- left_join(Trash_Wheel_df, Gwyn_Trash_Wheel_df)
 
 
 ```
