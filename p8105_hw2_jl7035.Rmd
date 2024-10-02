@@ -320,23 +320,16 @@ head(bakes_df)
 # Reading in and cleaning results csv
 ```{r}
 results_df <- 
-  read_csv("Local_Data_Files/gbb_datasets/results.csv",
-  na = c("NA", ".", "", "N/A", "Unknown", "UNKNOWN"),
-  skip =2 ) %>% 
+  read_csv(
+    "Local_Data_Files/gbb_datasets/results.csv",
+    na = c("NA", ".", "", "N/A", "Unknown", "UNKNOWN"),
+    skip =2 ) %>% 
   janitor::clean_names() %>%
   relocate(baker)
 
 head(results_df)
 ```
 
-## Identifying overlap between datasets (or where there isn't overlap)
-```{r}
-anti_join(bakes_df, results_df)
-anti_join(bakers_df, results_df)
-
-anti_join(bakes_df, bakers_df)
-
-```
 
 
 
@@ -348,9 +341,6 @@ gbb_combined <-
 
 anti_join(bakers_df, gbb_combined)
 anti_join(bakes_df, gbb_combined)
-
-gbb_combined
-
 
 ```
 
