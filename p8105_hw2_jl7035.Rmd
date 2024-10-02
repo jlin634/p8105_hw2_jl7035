@@ -155,11 +155,12 @@ ADA Compliant.
 Mr_Trash_Wheel_df <- 
   readxl::read_excel("Local_Data_Files/202409 Trash Wheel Collection Data.xlsx",
   sheet = "Mr. Trash Wheel", 
-  skip = 1,
   na = c("NA", ".", ""),
   range = "A2:N653"
   ) %>% 
-  janitor::clean_names()
+  janitor::clean_names() %>% 
+  mutate(Trash_Wheel_Type = rep("Mr. Trash Wheel", 
+  times = nrow(Mr_Trash_Wheel_df)))
 
 head(Mr_Trash_Wheel_df)
 
@@ -172,6 +173,8 @@ head(Mr_Trash_Wheel_df)
 Mr_Trash_Wheel_df <- Mr_Trash_Wheel_df %>% 
   mutate(sports_balls = as.integer(round(sports_balls))) 
 
+head(Mr_Trash_Wheel_df)
+
 ```
 
 ## Read in Professor Trash Wheel Data
@@ -179,11 +182,16 @@ Mr_Trash_Wheel_df <- Mr_Trash_Wheel_df %>%
 Professor_Trash_Wheel_df <-
   readxl::read_excel("Local_Data_Files/202409 Trash Wheel Collection Data.xlsx",
   sheet = "Professor Trash Wheel",
-  skip = 1,
   na = c("NA", ".", ""),
-  range = "A2:M120"
+  range = "A2:M120",
   ) %>%
-  janitor::clean_names()
+  janitor::clean_names() %>%
+  mutate(Trash_Wheel_Type = rep("Professor Trash Wheel", 
+  times = nrow(Professor_Trash_Wheel_df)), 
+  sports_balls = NA
+  ) %>% 
+  relocate(sports_balls, .before = homes_powered
+  )
 
 head(Professor_Trash_Wheel_df)
 
@@ -204,11 +212,18 @@ head(Professor_Trash_Wheel_df)
 Gwyn_Trash_Wheel_df <- 
   readxl::read_excel("Local_Data_Files/202409 Trash Wheel Collection Data.xlsx",
   sheet = "Gwynnda Trash Wheel",
-  skip =1, 
   na = c("NA", ".", ""),
   range ="A2:L265"
   ) %>% 
-  janitor::clean_names()
+  janitor::clean_names() %>% 
+  mutate(
+    Trash_Wheel_Type = rep("Gwynnda Trash Wheel", 
+    times = nrow(Gwyn_Trash_Wheel_df)),
+    sports_balls = NA, 
+    glass_bottles = NA
+  ) %>% 
+  relocate(sports_balls, .before = homes_powered) %>% 
+  relocate(glass_bottles, .before = plastic_bags)
 
 head(Gwyn_Trash_Wheel_df)
 
@@ -223,6 +238,13 @@ head(Gwyn_Trash_Wheel_df)
 
 ```
 
+## Bind 3 datasets together 
+
+```{r}
+
+
+
+```
 
 
 # Problem 3
