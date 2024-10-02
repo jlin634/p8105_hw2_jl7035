@@ -159,8 +159,7 @@ Mr_Trash_Wheel_df <-
   range = "A2:N653"
   ) %>% 
   janitor::clean_names() %>% 
-  mutate(Trash_Wheel_Type = rep("Mr. Trash Wheel", 
-  times = nrow(Mr_Trash_Wheel_df)))
+  mutate(Trash_Wheel_Type = "Mr. Trash Wheel")
 
 head(Mr_Trash_Wheel_df)
 
@@ -195,8 +194,7 @@ Professor_Trash_Wheel_df <-
   range = "A2:M120",
   ) %>%
   janitor::clean_names() %>%
-  mutate(Trash_Wheel_Type = rep("Professor Trash Wheel", 
-  times = nrow(Professor_Trash_Wheel_df)), 
+  mutate(Trash_Wheel_Type = "Professor Trash Wheel", 
   sports_balls = NA
   ) %>% 
   relocate(sports_balls, .before = homes_powered
@@ -226,8 +224,7 @@ Gwyn_Trash_Wheel_df <-
   ) %>% 
   janitor::clean_names() %>% 
   mutate(
-    Trash_Wheel_Type = rep("Gwynnda Trash Wheel", 
-    times = nrow(Gwyn_Trash_Wheel_df)),
+    Trash_Wheel_Type = "Gwynnda Trash Wheel",
     sports_balls = NA, 
     glass_bottles = NA
   ) %>% 
@@ -251,17 +248,34 @@ head(Gwyn_Trash_Wheel_df)
 
 ```{r}
 
-Trash_Wheel_df <- left_join(Mr_Trash_Wheel_df, Professor_Trash_Wheel_df)
-Trash_Wheel_df <- left_join(Trash_Wheel_df, Gwyn_Trash_Wheel_df)
+Trash_Wheel_df <- 
+  bind_rows(Mr_Trash_Wheel_df, Professor_Trash_Wheel_df, 
+  Gwyn_Trash_Wheel_df)
 
+head(Trash_Wheel_df)
 
 ```
+
+After combining the datasets, we find that there are `r nrow(Trash_Wheel_df)`
+total observations in this dataset. The key variables to note in this dataset 
+include date, weight in tons, volume, number of plastic bottles, number of 
+cigarette butts, number of glass bottles, number of plastic bags, number of 
+wrappers, and Trash Wheel Type. The total weight of trash collected by 
+Professor Trash Wheel is `r Trash_Wheel_df %>% filter(Trash_Wheel_Type == 
+"Professor Trash Wheel") %>% pull(weight_tons) %>% sum()` tons. The total 
+number of cigarette butts collected by the gwynnda trash wheel in June of 2022 
+is `r Trash_Wheel_df %>% filter(month == "June", year == 2022, 
+Trash_Wheel_Type == "Gwynnda Trash Wheel") %>% pull(cigarette_butts) %>% sum()`.
 
 
 # Problem 3
 
 
+
+## Reading in Data
 ```{r}
 
+Trash_Wheel_df %>% 
+filter(month == "June", year == 2022, Trash_Wheel_Type == "Gwynnda Trash Wheel") %>% pull(cigarette_butts) %>% sum()
 ```
 
