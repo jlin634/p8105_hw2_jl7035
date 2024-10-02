@@ -94,14 +94,22 @@ NYC_Transit_df <- NYC_Transit_df %>%
 There are `r nrow(NYC_Transit_df` ADA compliant stations.
 
 
-
+Determine proportion of station entrances/exits which allow entrance but do not
+have vending machines
 ```{r}
-NYC_Transit_df <- NYC_Transit_df %>% 
-  filter(vending ="NO", .keep_all = TRUE) %>% 
-  filter()
+Prop_Allow_Entrance <- NYC_Transit_df %>% 
+  filter(vending =="NO", .keep_all = TRUE) %>%
+  pull(entry) %>% 
+  case_match("YES" ~ 1, 
+             "NO" ~0
+  ) %>%
+  mean()
   
-```
 
+
+```
+The proportion of station entrances/exists without vending machines, that allow
+entrances is `r Prop_Allow_Entrance`
 
 Determine number of distinct stations serving the A train
 
