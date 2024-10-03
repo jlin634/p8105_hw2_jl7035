@@ -422,3 +422,19 @@ season.
 
 ## Read and Clean Viewers.csv
 
+```{r}
+viewers_df <- 
+  read_csv(
+    "Local_Data_Files/gbb_datasets/viewers.csv",
+    na= c("NA", ".", "", "N/A", "Unknown", "UNKNOWN")) %>% 
+  janitor::clean_names() %>% 
+  pivot_longer(
+    series_1:series_10,
+    names_to = "series",
+    values_to = "views")
+
+head(viewers_df)
+  
+```
+
+
