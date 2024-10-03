@@ -13,6 +13,7 @@ knitr::opts_chunk$set(echo = TRUE)
 # Load Necessary Libraries
 ```{r}
 library(tidyverse)
+library(readr)
 ```
 
 # Problem 1
@@ -357,7 +358,40 @@ gbb_combined <- gbb_combined %>%
 head(gbb_combined)
 
 ```
+## Export Data
+```{r}
+write_csv(gbb_combined,  "Local_Data_Files/gbb_datasets/gbb_combined.csv")
+```
 
+
+## Approach to cleaning 
+In order to begin the cleaning process, I first read in each of the csv files 
+and used head to see what columns were included. From here, I noticed that 
+the bakers.csv originally had first and last name grouped together. In order 
+to ensure that baker names would match between the 3 csv files, I separated 
+the baker column into 2: (1) Baker, (2) Last Name. Afterwards, I used anti-join
+to determine where there was not overlap between each of the 3 dataframes (
+this code chunk has since been deleted). I noticed that result.csv had the 
+least missing data when anti-joined with the other two, which makes sense, 
+since it was the largest dataset. I then did two consecutive left join calls 
+on results with the other two dfs. Here, I found that there was still missing 
+rows. In particular, it seemed that the missing rows corresponded to different 
+variations of the name Joanne. As a result, I standardized all the variations 
+of Joanne to Joanne (matching what was found in results.csv). After doing this,
+using left_join to make the gbb_combined df and then testing it for loss of
+rows with anti-join revealed no missing data. Regarding this "cleaned" version
+of the dataset, I still wonder whether I should have gone one step further.
+Looking at the gbb_combined.csv file, contestants have entries in the df, even 
+after they have been eliminated from the show. This leaves multiple rows filled
+with NA for most variables. I did not remove this, as this was the original 
+structure in results.csv, but I wonder if should have.
+
+
+## create reader-friendly table
+
+```{r}
+
+```
 
 
 ## Read and Clean Viewers.csv
