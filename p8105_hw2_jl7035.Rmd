@@ -390,8 +390,34 @@ structure in results.csv, but I wonder if should have.
 ## create reader-friendly table
 
 ```{r}
+winner_S5_S10 <- gbb_combined %>%
+  filter(
+    series %in% c(5:10), 
+    result == "STAR BAKER", 
+    .keepall = TRUE
+  ) %>% 
+  pivot_wider(
+    names_from = c(series, episode), 
+    values_from = result, 
+    id_cols = c(baker, last_name) 
+  ) %>% 
+  knitr::kable()
+
+winner_S5_S10
 
 ```
+
+Examining the data broadly, we can see that neither success in the early 
+season, nor having the most victories, suggested ultimately being the victor. 
+This was not the case for season 5, which had a predictable winner in Richard 
+Burr as he won 2 episodes early in the season and later would finish with 5
+victories. However with season 6, the winner, Nadiya Hussein, did not 
+achieve her first victory until the 5th episode, over halfway through the 
+season. A similar conclusion can be drawn about season 7 winner Andrew Smith, 
+season 8 winner Sophie Faldo, and season 9 winner Ruby Bhogal.Season 10 winner
+Alice Fevronia got her first victory in episode 2, but was by no means a 
+favorite to win, as Steph Blackwell tallied more total victories during the 
+season.
 
 
 ## Read and Clean Viewers.csv
