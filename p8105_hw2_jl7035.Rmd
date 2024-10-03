@@ -97,10 +97,14 @@ There are `r nrow(NYC_Transit_df)` ADA compliant stations.
 ## What proportion of station entrances / exits without vending allow entrance?
 ```{r}
 Prop_Allow_Entrance <- NYC_Transit_df %>% 
-  filter(vending =="NO", .keep_all = TRUE) %>%
+  filter(
+    vending =="NO", 
+    .keep_all = TRUE
+  ) %>%
   pull(entry) %>% 
-  case_match("YES" ~ 1, 
-             "NO" ~0
+  case_match(
+    "YES" ~ 1, 
+    "NO" ~0
   ) %>%
   mean()
   
@@ -137,7 +141,9 @@ There are `r nrow(Serve_A)` unique stations serving the A train.
 ## Determine how many of the stations serving the A train are ADA Compliant
 ```{r}
 Station_A_compl <- NYC_Transit_df %>% 
-  filter(route_name == "A", ada = TRUE) %>%
+  filter(route_name == "A", 
+    ada = TRUE
+  ) %>%
   distinct(line, station_name)
 
 
