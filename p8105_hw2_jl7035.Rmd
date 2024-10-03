@@ -431,10 +431,19 @@ viewers_df <-
   pivot_longer(
     series_1:series_10,
     names_to = "series",
-    values_to = "views")
+    values_to = "views"
+  ) %>% 
+  mutate()
 
-head(viewers_df)
+head(viewers_df, 10)
   
 ```
+The average viewership during the first season was `r viewers_df %>% filter(
+series == "series_1") %>% mean()`. The average viewership during the fifth 
+season was `r viewers_df %>% filter(series == "series_5") %>% mean()`. 
 
+Note: I wanted to convert the series column into an integer type by removing 
+the series prefix from each observation, but was unsure if we are allowed to 
+use functions outside of the scope fo whats taught. I would have used either 
+substr (base R) or str_remove (dplyr).
 
