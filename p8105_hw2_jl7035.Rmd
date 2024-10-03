@@ -336,22 +336,29 @@ head(results_df)
 ## Combine the Datasetsand check for Loss of Data
 ```{r}
 gbb_combined <- 
-  left_join(results_df, bakes_df) %>% 
-  left_join(bakers_df)
+  left_join(
+    results_df, bakes_df) %>% 
+  left_join(
+    bakers_df) %>% 
+  janitor::clean_names()
 
 anti_join(bakers_df, gbb_combined)
 anti_join(bakes_df, gbb_combined)
 
 ```
 
-
-
+## organize so that variables are in meaningful order
 ```{r}
-a <-anti_join(bakers_df, gbb_combined)
-b <- anti_join(bakes_df, gbb_combined)
+gbb_combined <- gbb_combined %>% 
+  relocate(baker, last_name, baker_age, baker_occupation, hometown, series,
+           episode, signature_bake, show_stopper, everything()
+  )
 
+head(gbb_combined)
 
 ```
+
+
 
 ## Read and Clean Viewers.csv
 
